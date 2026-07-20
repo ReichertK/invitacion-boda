@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { wedding } from '@/data/wedding'
 import { asset } from '@/lib/utils'
@@ -13,8 +13,27 @@ interface EnvelopeProps {
 
 const EASE = [0.76, 0, 0.24, 1] as const
 
-// Marco de rosas borgoña (PNG con transparencia). Se estira a viewport completo.
+// Marco de rosas borgoña (PNG con un damero gris opaco de fondo falso).
 const BORDER_SRC = asset('/img/BordeRosas.png')
+
+// Marco responsive con border-image: las esquinas mantienen tamaño y los bordes
+// se repiten ('round') para no deformarse en pantallas angostas. El slice recorta
+// la franja de rosas del PNG (2914x1440): ~290px arriba/abajo, ~330px a los lados.
+// El grosor va en clamp para que las rosas no queden ni gigantes ni finitas.
+// mix-blend-multiply + filter borran el damero contra el pergamino.
+const ROSE_FRAME: CSSProperties = {
+  borderStyle: 'solid',
+  borderColor: 'transparent',
+  borderTopWidth: 'clamp(46px, 9vh, 120px)',
+  borderBottomWidth: 'clamp(46px, 9vh, 120px)',
+  borderLeftWidth: 'clamp(40px, 12vw, 110px)',
+  borderRightWidth: 'clamp(40px, 12vw, 110px)',
+  borderImageSource: `url(${BORDER_SRC})`,
+  borderImageSlice: '290 330 290 330',
+  borderImageRepeat: 'round',
+  mixBlendMode: 'multiply',
+  filter: 'contrast(1.4) brightness(1.25)',
+}
 
 // Sello de lacre subido por el usuario. La imagen (2914x1440) trae el sello
 // centrado ocupando ~45% del ancho; backgroundSize 222% + center lo recorta al círculo.
@@ -53,16 +72,12 @@ export default function Envelope({ onOpen, onFinish }: EnvelopeProps) {
         style={{ background: TOP_BG }}
       >
         <div className="pointer-events-none absolute inset-x-4 top-4 bottom-0 rounded-t-sm border border-b-0 border-metal/30 md:inset-x-8 md:top-8" />
-        {/* Marco de rosas: mitad superior (anclado arriba, alto = viewport completo).
-           El PNG trae un damero gris opaco: brightness lo lleva a blanco y multiply lo funde. */}
+        {/* Marco de rosas: mitad superior. El overlay mide el alto completo del
+           viewport (200% de la media mitad) y se ancla arriba; el borde inferior
+           del marco cae en la costura y queda recortado por overflow-hidden. */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-screen bg-no-repeat"
-          style={{
-            backgroundImage: `url(${BORDER_SRC})`,
-            backgroundSize: '100% 100%',
-            mixBlendMode: 'multiply',
-            filter: 'contrast(1.4) brightness(1.25)',
-          }}
+          className="pointer-events-none absolute inset-x-0 top-0 h-[200%]"
+          style={ROSE_FRAME}
         />
       </motion.div>
 
@@ -74,15 +89,10 @@ export default function Envelope({ onOpen, onFinish }: EnvelopeProps) {
         style={{ background: BOTTOM_BG }}
       >
         <div className="pointer-events-none absolute inset-x-4 top-0 bottom-4 rounded-b-sm border border-t-0 border-metal/30 md:inset-x-8 md:bottom-8" />
-        {/* Marco de rosas: mitad inferior (anclado abajo, alto = viewport completo). */}
+        {/* Marco de rosas: mitad inferior (anclado abajo, alto completo). */}
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-screen bg-no-repeat"
-          style={{
-            backgroundImage: `url(${BORDER_SRC})`,
-            backgroundSize: '100% 100%',
-            mixBlendMode: 'multiply',
-            filter: 'contrast(1.4) brightness(1.25)',
-          }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[200%]"
+          style={ROSE_FRAME}
         />
       </motion.div>
 
