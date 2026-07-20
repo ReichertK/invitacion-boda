@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { wedding } from '@/data/wedding'
+import { asset } from '@/lib/utils'
 
 interface EnvelopeProps {
   /** Se dispara con el clic. Reproduce el audio DENTRO del gesto
@@ -13,11 +14,11 @@ interface EnvelopeProps {
 const EASE = [0.76, 0, 0.24, 1] as const
 
 // Marco de rosas borgoña (PNG con transparencia). Se estira a viewport completo.
-const BORDER_SRC = '/img/BordeRosas.png'
+const BORDER_SRC = asset('/img/BordeRosas.png')
 
 // Sello de lacre subido por el usuario. La imagen (2914x1440) trae el sello
 // centrado ocupando ~45% del ancho; backgroundSize 222% + center lo recorta al círculo.
-const SEAL_SRC = '/img/SelloCarta.png'
+const SEAL_SRC = asset('/img/SelloCarta.png')
 
 // Gradientes de cada mitad para que el pergamino se vea continuo en la costura.
 const TOP_BG =

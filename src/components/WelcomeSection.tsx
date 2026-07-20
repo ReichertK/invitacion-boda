@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion'
 import type { Guest } from '@/data/guests'
 import { wedding } from '@/data/wedding'
+import { asset } from '@/lib/utils'
 
 interface WelcomeSectionProps {
   guest: Guest
 }
 
 // Siluetas de referencia del código de vestimenta (negras sobre blanco -> blend con el pergamino).
-const DRESS_MEN = '/img/CaballeroElegante2.jpg'
-const DRESS_WOMEN = '/img/DamaElegante.jpg'
+const DRESS_MEN = asset('/img/CaballeroElegante2.jpg')
+const DRESS_WOMEN = asset('/img/DamaElegante.jpg')
 
 // Saludo personalizado según ?id + texto del edicto + código de vestimenta.
 export default function WelcomeSection({ guest }: WelcomeSectionProps) {

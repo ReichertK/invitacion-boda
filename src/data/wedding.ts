@@ -1,5 +1,7 @@
 // Datos centrales del evento. Editá acá y el resto de la app se actualiza solo.
 
+import { asset } from '@/lib/utils'
+
 export interface ItineraryItem {
   time: string
   title: string
@@ -70,8 +72,8 @@ export const wedding = {
 
   // Recursos gráficos y de audio (viven en /public).
   assets: {
-    logo: '/img/logocasamiento.jpeg',
-    photo: '/img/kevinycaro.jpg',
-    audio: '/Elden Ring - Elden Beast OST Extended (128kbit_AAC).m4a',
+    logo: asset('/img/logocasamiento.jpeg'),
+    photo: asset('/img/kevinycaro.jpg'),
+    audio: asset('/Elden Ring - Elden Beast OST Extended (128kbit_AAC).m4a'),
   },
 } as const
