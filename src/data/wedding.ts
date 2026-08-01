@@ -40,7 +40,6 @@ export const wedding = {
     note: 'Se ruega vestimenta formal, acorde a la solemnidad del edicto.',
     men: 'Traje negro, camisa, corbata y zapatos de vestir.',
     women: 'Vestido largo al cuerpo o de cóctel elegante. Se reserva el blanco para la novia.',
-    paletteUrl: 'https://pin.it/5g3tPlHAK',
     paletteNote: 'Guiate por la paleta de colores sugerida para los invitados.',
     reserved: 'El bordó queda reservado para las damas de honor.',
   },

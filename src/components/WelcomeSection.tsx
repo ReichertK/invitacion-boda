@@ -11,6 +11,7 @@ interface WelcomeSectionProps {
 // Siluetas de referencia del código de vestimenta (negras sobre blanco -> blend con el pergamino).
 const DRESS_MEN = asset('/img/CaballeroElegante2.jpg')
 const DRESS_WOMEN = asset('/img/DamaElegante.jpg')
+const DRESS_PALETTE = asset('/img/paletadecolores.jpg')
 
 // Saludo personalizado según ?id + texto del edicto + código de vestimenta.
 export default function WelcomeSection({ guest }: WelcomeSectionProps) {
@@ -97,16 +98,20 @@ export default function WelcomeSection({ guest }: WelcomeSectionProps) {
         </div>
 
         {/* Paleta de colores sugerida + reserva del bordó para las damas de honor */}
-        <div className="mt-10 text-center">
-          <a
-            href={wedding.dressCode.paletteUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="font-heading inline-flex items-center gap-2 rounded-md border border-metal/40 px-5 py-2.5 text-sm uppercase tracking-widest text-primary transition-colors hover:bg-primary/10"
-          >
+        <div className="mt-12 flex flex-col items-center text-center">
+          <p className="font-heading flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-metal">
             <Palette className="size-4" strokeWidth={1.5} /> Paleta de colores
-          </a>
-          <p className="font-serif mt-3 text-muted-foreground">{wedding.dressCode.paletteNote}</p>
+          </p>
+          {/* Recorte circular: descarta el fondo blancuzco del archivo y queda como medallón */}
+          <div className="mt-5 size-56 overflow-hidden rounded-full border border-metal/40 p-1.5 shadow-md ring-1 ring-metal/20 md:size-64">
+            <img
+              src={DRESS_PALETTE}
+              alt="Paleta de colores sugerida para los invitados"
+              loading="lazy"
+              className="size-full rounded-full object-cover"
+            />
+          </div>
+          <p className="font-serif mt-5 text-muted-foreground">{wedding.dressCode.paletteNote}</p>
           <p className="font-serif mt-1 text-sm text-metal">{wedding.dressCode.reserved}</p>
         </div>
       </div>
