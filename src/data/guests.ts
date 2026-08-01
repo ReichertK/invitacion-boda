@@ -35,8 +35,7 @@ export const guests: Record<string, Guest> = {
   alexander: { id: 'alexander', name: 'Alexander', passes: 1 },
   elena: { id: 'elena', name: 'Elena', passes: 1 },
   florencia: { id: 'florencia', name: 'Florencia', passes: 1 },
-  // Segunda Camila de la lista: renombrá el slug (ej. 'camila-perez') para no confundirlas.
-  'camila-2': { id: 'camila-2', name: 'Camila', passes: 1 },
+  'camila-ariana': { id: 'camila-ariana', name: 'Camila Ariana', passes: 1 },
   agar: { id: 'agar', name: 'Agar', passes: 1 },
   'tamara-y-rafael': { id: 'tamara-y-rafael', name: 'Tamara y Rafael', passes: 2 },
   'giuliana-y-nicolas': { id: 'giuliana-y-nicolas', name: 'Giuliana y Nicolás', passes: 2 },

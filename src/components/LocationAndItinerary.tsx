@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { MapPin, CalendarPlus, ChevronDown, Images, Navigation } from 'lucide-react'
+import { MapPin, CalendarPlus, ChevronDown, Images, Navigation, Phone } from 'lucide-react'
 import { wedding, WEDDING_DATE } from '@/data/wedding'
 import { Button } from '@/components/ui/button'
 import SectionHeading from '@/components/SectionHeading'
@@ -38,6 +38,16 @@ export default function LocationAndItinerary() {
               <div>
                 <p className="font-serif text-lg text-foreground">{wedding.venueName}</p>
                 <p className="text-sm text-muted-foreground">{wedding.venueAddress}</p>
+                <p className="mt-1 text-xs text-muted-foreground/80">
+                  Plus code: {wedding.venuePlusCode}
+                </p>
+                <a
+                  href={`tel:${wedding.venuePhoneRaw}`}
+                  className="mt-1 inline-flex items-center gap-1.5 text-sm text-metal underline underline-offset-4 hover:text-primary"
+                >
+                  <Phone className="size-3.5" strokeWidth={1.5} />
+                  {wedding.venuePhone}
+                </a>
               </div>
             </div>
           )}
@@ -69,7 +79,7 @@ export default function LocationAndItinerary() {
                   </a>
                 </Button>
                 <Button asChild variant="outline" size="sm" className="font-heading tracking-wide">
-                  <a href={wedding.mapPhotosUrl} target="_blank" rel="noreferrer">
+                  <a href={wedding.mapDirectionsUrl} target="_blank" rel="noreferrer">
                     <Navigation className="size-4" />
                     Cómo llegar
                   </a>

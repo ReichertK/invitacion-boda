@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Gift, Copy, Check, Feather, Loader2, Heart } from 'lucide-react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { clientMeta } from '@/lib/utils'
 import { wedding } from '@/data/wedding'
 import type { Guest } from '@/data/guests'
 import { Button } from '@/components/ui/button'
@@ -41,9 +42,12 @@ export default function GiftsSection({ guest }: GiftsSectionProps) {
     try {
       await addDoc(collection(db, 'wishes'), {
         guestId: guest.id,
+        guestName: guest.name,
         name: name.trim() || guest.name,
         message: message.trim(),
         createdAt: serverTimestamp(),
+        clientCreatedAt: new Date().toISOString(),
+        meta: clientMeta(),
       })
       setSent(true)
     } catch {

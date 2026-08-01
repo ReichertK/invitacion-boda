@@ -11,3 +11,16 @@ export function cn(...inputs: ClassValue[]) {
 export function asset(path: string) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 }
+
+// Contexto del navegador que se adjunta a cada envío a Firestore. Sirve para
+// rastrear un registro dudoso (quién lo mandó, desde dónde, con qué link).
+export function clientMeta() {
+  return {
+    userAgent: navigator.userAgent.slice(0, 300),
+    language: navigator.language || '',
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+    screen: `${window.screen.width}x${window.screen.height}`,
+    url: window.location.href.slice(0, 500),
+    referrer: document.referrer.slice(0, 300),
+  }
+}

@@ -6,30 +6,71 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Contexto del navegador que viaja con cada envío.
+    function validMeta(meta) {
+      return meta is map
+             && meta.keys().hasOnly(['userAgent', 'language', 'timeZone', 'screen', 'url', 'referrer'])
+             && meta.userAgent is string && meta.userAgent.size() <= 300
+             && meta.language is string && meta.language.size() <= 40
+             && meta.timeZone is string && meta.timeZone.size() <= 80
+             && meta.screen is string && meta.screen.size() <= 40
+             && meta.url is string && meta.url.size() <= 500
+             && meta.referrer is string && meta.referrer.size() <= 300;
+    }
+
     match /rsvps/{guestId} {
       allow read: if false;
       allow create, update: if request.resource.data.keys().hasOnly(
-                                 ['guestId', 'name', 'attending', 'song', 'updatedAt'])
+                                 ['guestId', 'name', 'invitedPasses', 'attending', 'attendingLabel',
+                                  'attendeesCount', 'attendeeNames', 'contact', 'dietary', 'song',
+                                  'notes', 'summary', 'updatedAt', 'clientUpdatedAt', 'meta'])
                             && request.resource.data.guestId is string
                             && request.resource.data.guestId == guestId
                             && request.resource.data.name is string
                             && request.resource.data.name.size() <= 120
+                            && request.resource.data.invitedPasses is int
+                            && request.resource.data.invitedPasses >= 1
+                            && request.resource.data.invitedPasses <= 20
                             && request.resource.data.attending is bool
+                            && request.resource.data.attendingLabel is string
+                            && request.resource.data.attendingLabel.size() <= 40
+                            && request.resource.data.attendeesCount is int
+                            && request.resource.data.attendeesCount >= 0
+                            && request.resource.data.attendeesCount <= request.resource.data.invitedPasses
+                            && request.resource.data.attendeeNames is string
+                            && request.resource.data.attendeeNames.size() <= 300
+                            && request.resource.data.contact is string
+                            && request.resource.data.contact.size() <= 60
+                            && request.resource.data.dietary is string
+                            && request.resource.data.dietary.size() <= 300
                             && request.resource.data.song is string
-                            && request.resource.data.song.size() <= 200;
+                            && request.resource.data.song.size() <= 200
+                            && request.resource.data.notes is string
+                            && request.resource.data.notes.size() <= 600
+                            && request.resource.data.summary is string
+                            && request.resource.data.summary.size() <= 200
+                            && request.resource.data.clientUpdatedAt is string
+                            && request.resource.data.clientUpdatedAt.size() <= 40
+                            && validMeta(request.resource.data.meta);
       allow delete: if false;
     }
 
     match /wishes/{wishId} {
       allow read: if false;
       allow create: if request.resource.data.keys().hasOnly(
-                         ['guestId', 'name', 'message', 'createdAt'])
+                         ['guestId', 'guestName', 'name', 'message', 'createdAt',
+                          'clientCreatedAt', 'meta'])
                     && request.resource.data.guestId is string
+                    && request.resource.data.guestName is string
+                    && request.resource.data.guestName.size() <= 120
                     && request.resource.data.name is string
                     && request.resource.data.name.size() <= 120
                     && request.resource.data.message is string
                     && request.resource.data.message.size() > 0
-                    && request.resource.data.message.size() <= 1000;
+                    && request.resource.data.message.size() <= 1000
+                    && request.resource.data.clientCreatedAt is string
+                    && request.resource.data.clientCreatedAt.size() <= 40
+                    && validMeta(request.resource.data.meta);
       allow update, delete: if false;
     }
 

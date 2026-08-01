@@ -31,11 +31,17 @@ export const wedding = {
   timeLabel: '11:00 hs',
 
   venueName: 'La quinta de Silvia',
-  venueAddress: 'City Bell, La Plata, Buenos Aires',
+  venueAddress: 'Calle 422, C. 202 &, Arturo Seguí, Provincia de Buenos Aires',
+  venuePhone: '011 4187-9651',
+  venuePhoneRaw: '+541141879651',
+  venuePlusCode: '3RGW+G7 Arturo Seguí, Provincia de Buenos Aires',
+  venueCoords: '-34.9237226,-58.1542583',
   // Embed sin API key: coordenadas del lugar en modo "output=embed".
   mapEmbedUrl:
     'https://maps.google.com/maps?q=-34.9237226,-58.1542583&hl=es&z=16&output=embed',
-  mapPlaceUrl: 'https://maps.app.goo.gl/?link=https://www.google.com/maps/place/La+quinta+de+Silvia',
+  // Abre la app de mapas con la ruta hasta las coordenadas exactas.
+  mapDirectionsUrl:
+    'https://www.google.com/maps/dir/?api=1&destination=-34.9237226,-58.1542583',
   mapPhotosUrl:
     'https://www.google.com/maps/place/La+quinta+de+Silvia/@-34.9237182,-58.1568386,17z/data=!4m14!1m7!3m6!1s0x95a2da30b0291d71:0x9aa7508789d21686!2sLa+quinta+de+Silvia!8m2!3d-34.9237226!4d-58.1542583!16s%2Fg%2F11c7hdxltn!3m5!1s0x95a2da30b0291d71:0x9aa7508789d21686!8m2!3d-34.9237226!4d-58.1542583!16s%2Fg%2F11c7hdxltn',
 
