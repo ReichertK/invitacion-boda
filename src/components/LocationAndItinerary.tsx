@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { MapPin, CalendarPlus } from 'lucide-react'
+import { MapPin, CalendarPlus, ChevronDown, Images, Navigation } from 'lucide-react'
 import { wedding, WEDDING_DATE } from '@/data/wedding'
 import { Button } from '@/components/ui/button'
 import SectionHeading from '@/components/SectionHeading'
@@ -42,28 +42,41 @@ export default function LocationAndItinerary() {
             </div>
           )}
 
-          <div className="overflow-hidden rounded-md border border-metal/40 shadow-md">
-            {wedding.mapEmbedUrl ? (
+          {/* Se despliega a pedido: el iframe no se carga hasta abrirlo */}
+          <details className="group overflow-hidden rounded-md border border-metal/40 bg-card/60 shadow-md">
+            <summary className="font-heading flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm uppercase tracking-widest text-primary transition-colors hover:bg-primary/10">
+              Conocé el lugar
+              <ChevronDown
+                className="size-4 shrink-0 transition-transform group-open:rotate-180"
+                strokeWidth={1.5}
+              />
+            </summary>
+
+            <div className="border-t border-metal/30">
               <iframe
                 src={wedding.mapEmbedUrl}
-                title="Mapa del lugar"
+                title={`Mapa de ${wedding.venueName}`}
                 className="aspect-video w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
-            ) : (
-              <div className="flex aspect-video w-full flex-col items-center justify-center gap-2 bg-muted text-center">
-                <MapPin className="size-8 text-metal" strokeWidth={1.5} />
-                <p className="font-serif text-sm text-muted-foreground">
-                  Mapa próximamente
-                </p>
-                <p className="px-4 text-xs text-muted-foreground/70">
-                  Pegá la URL en <code>wedding.mapEmbedUrl</code>
-                </p>
+              <div className="flex flex-col gap-2 px-4 py-4 sm:flex-row">
+                <Button asChild variant="outline" size="sm" className="font-heading tracking-wide">
+                  <a href={wedding.mapPhotosUrl} target="_blank" rel="noreferrer">
+                    <Images className="size-4" />
+                    Ver fotos del lugar
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="sm" className="font-heading tracking-wide">
+                  <a href={wedding.mapPhotosUrl} target="_blank" rel="noreferrer">
+                    <Navigation className="size-4" />
+                    Cómo llegar
+                  </a>
+                </Button>
               </div>
-            )}
-          </div>
+            </div>
+          </details>
         </div>
 
         {/* Itinerario */}

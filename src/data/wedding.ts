@@ -30,10 +30,14 @@ export const wedding = {
   dateLabel: '20 de febrero de 2027',
   timeLabel: '11:00 hs',
 
-  // TODO: pegar la URL de "embed" del mapa (Google Maps > Compartir > Insertar un mapa).
-  venueName: '',
-  venueAddress: '',
-  mapEmbedUrl: '',
+  venueName: 'La quinta de Silvia',
+  venueAddress: 'City Bell, La Plata, Buenos Aires',
+  // Embed sin API key: coordenadas del lugar en modo "output=embed".
+  mapEmbedUrl:
+    'https://maps.google.com/maps?q=-34.9237226,-58.1542583&hl=es&z=16&output=embed',
+  mapPlaceUrl: 'https://maps.app.goo.gl/?link=https://www.google.com/maps/place/La+quinta+de+Silvia',
+  mapPhotosUrl:
+    'https://www.google.com/maps/place/La+quinta+de+Silvia/@-34.9237182,-58.1568386,17z/data=!4m14!1m7!3m6!1s0x95a2da30b0291d71:0x9aa7508789d21686!2sLa+quinta+de+Silvia!8m2!3d-34.9237226!4d-58.1542583!16s%2Fg%2F11c7hdxltn!3m5!1s0x95a2da30b0291d71:0x9aa7508789d21686!8m2!3d-34.9237226!4d-58.1542583!16s%2Fg%2F11c7hdxltn',
 
   dressCode: {
     label: 'Etiqueta rigurosa',
@@ -44,9 +48,10 @@ export const wedding = {
     reserved: 'El bordó queda reservado para las damas de honor.',
   },
 
-  // Sección de regalos: alias bancario para transferencias.
-  // TODO: reemplazar por el alias real.
-  giftAlias: '',
+  // Sección de regalos: datos bancarios para transferencias.
+  giftAlias: 'boda.kevincaro',
+  giftCvu: '0000003100085378008076',
+  giftHolder: 'Kevin Dinal Reichert',
   giftNote: 'Su presencia es el mayor de los tesoros. Si desean obsequiar, pueden hacerlo aquí.',
 
   itinerary: [

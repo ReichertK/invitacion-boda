@@ -14,7 +14,7 @@ interface GiftsSectionProps {
 
 // Bloque sutil de regalos con alias bancario y libro de buenos deseos.
 export default function GiftsSection({ guest }: GiftsSectionProps) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState<string | null>(null)
 
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
@@ -22,12 +22,11 @@ export default function GiftsSection({ guest }: GiftsSectionProps) {
   const [sent, setSent] = useState(false)
   const [wishError, setWishError] = useState(false)
 
-  async function copyAlias() {
-    if (!wedding.giftAlias) return
+  async function copyValue(value: string, label: string) {
     try {
-      await navigator.clipboard.writeText(wedding.giftAlias)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(value)
+      setCopied(label)
+      setTimeout(() => setCopied(null), 2000)
     } catch {
       /* clipboard no disponible */
     }
@@ -69,18 +68,36 @@ export default function GiftsSection({ guest }: GiftsSectionProps) {
         <p className="font-serif mt-4 text-lg text-muted-foreground">{wedding.giftNote}</p>
 
         {wedding.giftAlias ? (
-          <div className="mt-6">
-            <p className="font-heading text-xs uppercase tracking-widest text-metal">
-              Alias
+          <div className="mt-6 flex flex-col gap-4">
+            {(
+              [
+                { label: 'Alias', value: wedding.giftAlias },
+                { label: 'CVU', value: wedding.giftCvu },
+              ] as const
+            ).map((item) => (
+              <div key={item.label}>
+                <p className="font-heading text-xs uppercase tracking-widest text-metal">
+                  {item.label}
+                </p>
+                <div className="mt-2 flex items-center justify-center gap-3">
+                  <code className="font-serif rounded bg-muted px-3 py-1.5 text-foreground break-all">
+                    {item.value}
+                  </code>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={() => copyValue(item.value, item.label)}
+                    aria-label={`Copiar ${item.label}`}
+                    className="shrink-0"
+                  >
+                    {copied === item.label ? <Check className="text-primary" /> : <Copy />}
+                  </Button>
+                </div>
+              </div>
+            ))}
+            <p className="font-serif text-sm text-muted-foreground">
+              A nombre de {wedding.giftHolder}
             </p>
-            <div className="mt-2 flex items-center justify-center gap-3">
-              <code className="font-serif rounded bg-muted px-3 py-1.5 text-lg text-foreground">
-                {wedding.giftAlias}
-              </code>
-              <Button size="icon" variant="outline" onClick={copyAlias} aria-label="Copiar alias">
-                {copied ? <Check className="text-primary" /> : <Copy />}
-              </Button>
-            </div>
           </div>
         ) : (
           <p className="mt-6 text-sm text-muted-foreground/70">
