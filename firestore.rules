@@ -1,0 +1,40 @@
+rules_version = '2';
+
+// Invitación pública sin login: sólo se permite escribir las confirmaciones y
+// los buenos deseos, con los campos esperados. Nadie puede leer desde la web
+// (los datos se consultan desde la consola de Firebase).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /rsvps/{guestId} {
+      allow read: if false;
+      allow create, update: if request.resource.data.keys().hasOnly(
+                                 ['guestId', 'name', 'attending', 'song', 'updatedAt'])
+                            && request.resource.data.guestId is string
+                            && request.resource.data.guestId == guestId
+                            && request.resource.data.name is string
+                            && request.resource.data.name.size() <= 120
+                            && request.resource.data.attending is bool
+                            && request.resource.data.song is string
+                            && request.resource.data.song.size() <= 200;
+      allow delete: if false;
+    }
+
+    match /wishes/{wishId} {
+      allow read: if false;
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['guestId', 'name', 'message', 'createdAt'])
+                    && request.resource.data.guestId is string
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() <= 120
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() > 0
+                    && request.resource.data.message.size() <= 1000;
+      allow update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
