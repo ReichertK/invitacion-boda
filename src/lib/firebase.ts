@@ -11,6 +11,6 @@ const firebaseConfig = {
 }
 
 // Evita reinicializar en hot-reload de Vite.
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
+export const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
 
 export const db = getFirestore(app)

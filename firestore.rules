@@ -1,10 +1,19 @@
 rules_version = '2';
 
-// Invitación pública sin login: sólo se permite escribir las confirmaciones y
-// los buenos deseos, con los campos esperados. Nadie puede leer desde la web
-// (los datos se consultan desde la consola de Firebase).
+// Invitación pública sin login: cualquiera puede escribir su confirmación y su
+// deseo con los campos esperados, pero leer sólo pueden los novios desde /panel.
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // UID de las cuentas habilitadas para el panel. Se sacan de Authentication >
+    // Users en la consola de Firebase.
+    function isAdmin() {
+      return request.auth != null
+             && request.auth.uid in [
+                  'UID_DE_KEVIN',
+                  'UID_DE_CAROLINA'
+                ];
+    }
 
     // Contexto del navegador que viaja con cada envío.
     function validMeta(meta) {
@@ -19,7 +28,7 @@ service cloud.firestore {
     }
 
     match /rsvps/{guestId} {
-      allow read: if false;
+      allow read: if isAdmin();
       allow create, update: if request.resource.data.keys().hasOnly(
                                  ['guestId', 'name', 'invitedPasses', 'attending', 'attendingLabel',
                                   'attendeesCount', 'attendeeNames', 'contact', 'dietary', 'song',
@@ -56,7 +65,7 @@ service cloud.firestore {
     }
 
     match /wishes/{wishId} {
-      allow read: if false;
+      allow read: if isAdmin();
       allow create: if request.resource.data.keys().hasOnly(
                          ['guestId', 'guestName', 'name', 'message', 'createdAt',
                           'clientCreatedAt', 'meta'])
