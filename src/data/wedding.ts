@@ -40,7 +40,7 @@ export const wedding = {
     note: 'Se ruega vestimenta formal, acorde a la solemnidad del edicto.',
     men: 'Traje negro, camisa, corbata y zapatos de vestir.',
     women: 'Vestido largo al cuerpo o de cóctel elegante. Se reserva el blanco para la novia.',
-    paletteNote: 'Guiate por la paleta de colores sugerida para los invitados.',
+    paletteNote: 'Guiate por la paleta de colores obligatorios para los invitados.',
     reserved: 'El bordó queda reservado para las damas de honor.',
   },
 
@@ -75,7 +75,7 @@ export const wedding = {
     {
       question: 'Normas para la ceremonia',
       answer:
-        'El ingreso es de 11:00 a 11:30. Pasado ese horario no se permite el acceso, ya que comienza la ceremonia; quien llegue tarde deberá aguardar fuera del establecimiento hasta que finalice (13:00 hs). Durante la ceremonia está prohibido el uso de celulares: los novios desean que estén presentes solo en ese momento tan especial.',
+        'El ingreso es de 11:00 a 11:30. Pasado ese horario no se permite el acceso, ya que comienza la ceremonia; quien llegue tarde deberá esperar fuera del establecimiento hasta que finalice (13:00 hs). Durante la ceremonia está prohibido el uso de celulares: los novios desean que estén presentes solo en ese momento tan especial.',
     },
     {
       question: '¿Qué llevo para la tarde?',
