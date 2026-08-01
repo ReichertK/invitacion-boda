@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Palette } from 'lucide-react'
 import type { Guest } from '@/data/guests'
 import { wedding } from '@/data/wedding'
 import { asset } from '@/lib/utils'
@@ -93,6 +94,20 @@ export default function WelcomeSection({ guest }: WelcomeSectionProps) {
               <p className="font-serif mt-1 text-muted-foreground">{wedding.dressCode.women}</p>
             </figcaption>
           </figure>
+        </div>
+
+        {/* Paleta de colores sugerida + reserva del bordó para las damas de honor */}
+        <div className="mt-10 text-center">
+          <a
+            href={wedding.dressCode.paletteUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="font-heading inline-flex items-center gap-2 rounded-md border border-metal/40 px-5 py-2.5 text-sm uppercase tracking-widest text-primary transition-colors hover:bg-primary/10"
+          >
+            <Palette className="size-4" strokeWidth={1.5} /> Paleta de colores
+          </a>
+          <p className="font-serif mt-3 text-muted-foreground">{wedding.dressCode.paletteNote}</p>
+          <p className="font-serif mt-1 text-sm text-metal">{wedding.dressCode.reserved}</p>
         </div>
       </div>
     </section>

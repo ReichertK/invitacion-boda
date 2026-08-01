@@ -38,8 +38,11 @@ export const wedding = {
   dressCode: {
     label: 'Etiqueta rigurosa',
     note: 'Se ruega vestimenta formal, acorde a la solemnidad del edicto.',
-    men: 'Traje oscuro o smoking, camisa clara y zapatos de vestir.',
-    women: 'Vestido largo o de cóctel elegante. Reservamos el blanco para la novia.',
+    men: 'Traje negro, camisa, corbata y zapatos de vestir.',
+    women: 'Vestido largo al cuerpo o de cóctel elegante. Se reserva el blanco para la novia.',
+    paletteUrl: 'https://pin.it/5g3tPlHAK',
+    paletteNote: 'Guiate por la paleta de colores sugerida para los invitados.',
+    reserved: 'El bordó queda reservado para las damas de honor.',
   },
 
   // Sección de regalos: alias bancario para transferencias.
@@ -48,10 +51,11 @@ export const wedding = {
   giftNote: 'Su presencia es el mayor de los tesoros. Si desean obsequiar, pueden hacerlo aquí.',
 
   itinerary: [
-    { time: '11:00', title: 'Ceremonia', description: 'Recepción de los invitados y voto solemne.' },
-    { time: '12:30', title: 'Brindis', description: 'Copa de honor y saludos a los novios.' },
-    { time: '13:30', title: 'Banquete', description: 'Almuerzo de celebración.' },
-    { time: '16:00', title: 'Fiesta', description: 'Música y baile hasta el ocaso.' },
+    { time: '11:00 – 11:30', title: 'Entrada de invitados', description: 'Recepción de los presentes. El ingreso se cierra a las 11:30 en punto.' },
+    { time: '12:00', title: 'Ceremonia', description: 'Voto solemne ante los testigos.' },
+    { time: '13:00 – 13:30', title: 'Banquete', description: 'Almuerzo de celebración.' },
+    { time: '16:00', title: 'Fiesta', description: 'Música, baile y actividades al aire libre.' },
+    { time: '18:30', title: 'Finalización', description: 'Cierre del festejo.' },
   ] as ItineraryItem[],
 
   faq: [
@@ -66,7 +70,18 @@ export const wedding = {
     },
     {
       question: '¿Hasta cuándo puedo confirmar?',
-      answer: 'Agradecemos la confirmación con al menos tres semanas de anticipación.',
+      answer:
+        'Pedimos confirmar antes del 31 de agosto de 2026. Además, te pedimos reconfirmar el 16 de enero.',
+    },
+    {
+      question: 'Normas para la ceremonia',
+      answer:
+        'El ingreso es de 11:00 a 11:30. Pasado ese horario no se permite el acceso, ya que comienza la ceremonia; quien llegue tarde deberá aguardar fuera del establecimiento hasta que finalice (13:00 hs). Durante la ceremonia está prohibido el uso de celulares: los novios desean que estén presentes solo en ese momento tan especial.',
+    },
+    {
+      question: '¿Qué llevo para la tarde?',
+      answer:
+        'A las 16:00 se habilitan la cancha de fútbol, la cancha de vóley y la piscina. Traé cambio de ropa y lo necesario para esas actividades (toalla, protector solar, etc.).',
     },
   ] as FaqItem[],
 

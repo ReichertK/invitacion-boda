@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { Volume2, VolumeX } from 'lucide-react'
 import { wedding } from '@/data/wedding'
 import { getGuest } from '@/data/guests'
 import Envelope from '@/components/Envelope'
@@ -14,6 +15,7 @@ import FAQSection from '@/components/FAQSection'
 
 function App() {
   const [isOpened, setIsOpened] = useState(false)
+  const [musicOn, setMusicOn] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   // Personalización por URL: ?id=slug -> invitado (o genérico por defecto).
@@ -28,9 +30,27 @@ function App() {
       audio.volume = 0.6
       audioRef.current = audio
     }
-    void audioRef.current.play().catch(() => {
-      /* el navegador puede rechazar; se reintenta con otra interacción */
-    })
+    void audioRef.current
+      .play()
+      .then(() => setMusicOn(true))
+      .catch(() => {
+        /* el navegador puede rechazar; se reintenta con otra interacción */
+      })
+  }
+
+  // Pausa o reanuda la música desde el botón flotante.
+  function toggleMusic() {
+    const audio = audioRef.current
+    if (!audio) return
+    if (audio.paused) {
+      void audio
+        .play()
+        .then(() => setMusicOn(true))
+        .catch(() => {})
+    } else {
+      audio.pause()
+      setMusicOn(false)
+    }
   }
 
   // Se llama al terminar la animación de apertura, para desmontar el sobre.
@@ -52,7 +72,7 @@ function App() {
           <WelcomeSection guest={guest} />
           <CountdownSection />
           <LocationAndItinerary />
-          <GiftsSection />
+          <GiftsSection guest={guest} />
           <RSVPSection guest={guest} />
           <FAQSection />
 
@@ -72,6 +92,17 @@ function App() {
           <Envelope key="envelope" onOpen={playMusic} onFinish={finishOpen} />
         )}
       </AnimatePresence>
+
+      {isOpened && (
+        <button
+          type="button"
+          onClick={toggleMusic}
+          aria-label={musicOn ? 'Silenciar música' : 'Activar música'}
+          className="fixed right-5 bottom-5 z-40 flex size-12 items-center justify-center rounded-full border border-burgundy-deep bg-primary text-parchment shadow-lg ring-2 ring-burgundy-deep/40 transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/60"
+        >
+          {musicOn ? <Volume2 className="size-5" /> : <VolumeX className="size-5" />}
+        </button>
+      )}
     </>
   )
 }
