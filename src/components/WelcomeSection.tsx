@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Palette } from 'lucide-react'
-import type { Guest } from '@/data/guests'
+import { getGreeting, type Guest } from '@/data/guests'
 import { wedding } from '@/data/wedding'
 import { asset } from '@/lib/utils'
 
@@ -25,7 +25,7 @@ export default function WelcomeSection({ guest }: WelcomeSectionProps) {
         className="mx-auto max-w-2xl text-center"
       >
         <p className="font-serif text-2xl leading-relaxed text-foreground md:text-3xl">
-          Estimados <span className="font-semibold text-primary">{guest.name}</span>,
+          {getGreeting(guest)} <span className="font-semibold text-primary">{guest.name}</span>,
         </p>
         <p className="font-serif mt-4 text-lg leading-relaxed text-muted-foreground md:text-xl">
           {wedding.intro} {wedding.groom} &amp; {wedding.bride}. Será un honor contar con
