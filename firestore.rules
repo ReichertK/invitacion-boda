@@ -5,14 +5,11 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // UID de las cuentas habilitadas para el panel. Se sacan de Authentication >
+    // UID de la cuenta habilitada para el panel. Se saca de Authentication >
     // Users en la consola de Firebase.
     function isAdmin() {
       return request.auth != null
-             && request.auth.uid in [
-                  'UID_DE_KEVIN',
-                  'UID_DE_CAROLINA'
-                ];
+             && request.auth.uid == 'jIaeitrqBCRRl7ZNOCpHQAy50Si1';
     }
 
     // Contexto del navegador que viaja con cada envío.
