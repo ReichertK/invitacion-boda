@@ -47,6 +47,7 @@ export const guests: Record<string, Guest> = {
   'tamara-y-rafael': { id: 'tamara-y-rafael', name: 'Tamara y Rafael', passes: 2 },
   'giuliana-y-nicolas': { id: 'giuliana-y-nicolas', name: 'Giuliana y Nicolás', passes: 2 },
   sergio: { id: 'sergio', name: 'Sergio', passes: 1, gender: 'm' },
+  esther: { id: 'esther', name: 'Esther', passes: 1, gender: 'f' },
 }
 
 // Invitado genérico cuando no hay ?id en la URL o no matchea.
